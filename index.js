@@ -20,7 +20,14 @@ http.createServer(function (req, res) {
         var fileStream = fs.createReadStream(imagePath);
         res.writeHead(200, { "Content-Type": "image/png" });
         fileStream.pipe(res);
-    } else {
+    }
+    else if (req.url.match("\.jpg$")) {
+        var imageJpgPath = path.join(__dirname, '', req.url);
+        var fileStream = fs.createReadStream(imageJpgPath);
+        res.writeHead(200, { "Content-Type": "image/jpg" });
+        fileStream.pipe(res);
+    }
+    else {
         res.writeHead(404, { "Content-Type": "text/html" });
         res.end("No Page Found");
     }
